@@ -1,9 +1,9 @@
-const querystring = require('querystring');
-const overlayStyles = require('./overlay');
+const querystring = require('querystring')
+const overlayStyles = require('./overlay')
 
 module.exports = {
     getClient() {
-        const host = 'webpack-hot-middleware/client?';
+        const host = 'webpack-hot-middleware/client?'
         const query = querystring.stringify({
             path: '/__webpack_hmr',
             timeout: 20000,
@@ -11,8 +11,8 @@ module.exports = {
             overlay: true,
             noInfo: true,
             overlayStyles: JSON.stringify(overlayStyles)
-        });
+        })
 
-        return `${host}${query}`;
+        return `${host}${query}`
     }
 }

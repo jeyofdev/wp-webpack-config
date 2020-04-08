@@ -1,28 +1,29 @@
-const path = require ('path')
-const webpack = require ('webpack')
+const path = require('path')
+const webpack = require('webpack')
 
-const MiniCssExtractWebpackPlugin = require ('mini-css-extract-plugin') 
-const CopyWebpackPlugin = require ('copy-webpack-plugin') 
-const CleanWebpackPlugin = require ('clean-webpack-plugin') 
-const NonJsEntryCleanupPlugin = require ('./ non-js-entry-cleanup-plugin') 
-const FriendlyErrorsWebpackPlugin = require ('friendly-errors-webpack-plugin') 
-const {context, entry, devtool, outputFolder, publicFolder} = require ('./config') 
+const MiniCssExtractWebpackPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
-const reload = require ('./reload') 
-const getPublicPath = require ('./ publicPath')
+const { context, entry, devtool, outputFolder, publicFolder } = require('./config')
+
+const HMR = require('./hmr')
+const getPublicPath = require('./publicPath')
 
 
 module.exports = (options) => { 
-    const {dev} = options; 
-    const reload = HMR.getClient (); 
+    const { dev } = options
+    const hmr = HMR.getClient()
 
     return {
         mode: dev ? 'development' : 'production',
-        devtool: dev ? devtool : false,
+        devtool: dev ?  devtool : false,
         context: path.resolve(context),
         entry: {
-            'styles/app': dev ? [reload, entry.styles] : entry.styles,
-            'scripts/app': dev ? [reload, entry.scripts] : entry.scripts
+            'styles/app': dev ? [hmr, entry.styles] : entry.styles,
+            'scripts/app': dev ? [hmr, entry.scripts] : entry.scripts
         },
         output: {
             path: path.resolve(outputFolder),
@@ -47,14 +48,6 @@ module.exports = (options) => {
                             loader: 'css-loader',
                             options: {
                                 sourceMap: dev
-                            }
-                        },
-                        { 
-                            loader: 'postcss-loader',
-                            options: {
-                                ident: 'postcss',
-                                sourceMap: dev,
-                                config: { ctx: { dev } }
                             }
                         },
                         { 
@@ -95,10 +88,10 @@ module.exports = (options) => {
                 }),
                 new NonJsEntryCleanupPlugin({
                     context: 'styles',
-                    extesion: 'js',
+                    extensions: 'js',
                     includeSubfolders: true
                 }),
-                new CopyWebpackPlugin([
+                new CleanWebpackPlugin([
                     path.resolve(outputFolder)
                 ], {
                     allowExternal: true,
@@ -110,9 +103,9 @@ module.exports = (options) => {
                         to: path.resolve(outputFolder),
                     }
                 ], {
-                    ignore: ['*.js', '*.scss', '*.css']
+                    ignore: ['*.js', '*.ts', '*.scss', '*.css']
                 })
             ])
         ]
-    }; 
+    } 
 }

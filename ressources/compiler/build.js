@@ -13,7 +13,6 @@ webpack(config, (err, stats) => {
     }
 
     if (stats.hasErrors()) {
-
         console.error(stats.toString({
             all: false,
             colors: true,
@@ -27,9 +26,9 @@ webpack(config, (err, stats) => {
 
     if (stats.hasWarnings()) {
         console.warn(stats.toString({
-        all: false,
-        colors: true,
-        errors: true
+            all: false,
+            colors: true,
+            errors: true
         }))
     }
 

@@ -1,3 +1,43 @@
 body {
-    background: rgb(255, 255, 255);
+    background: rgb(222, 226, 235);
+}
+
+.blog-main .article {
+    flex: 0 0 47.5%;
+    max-width: 47.5%;
+    margin: 0 1.25%;
+}
+
+.blog-main a {
+    text-decoration: none;
+}
+
+.blog-main .badge {
+    font-size: 1rem;
+}
+
+.blog-sidebar a {
+    color: white;
+}
+
+a,
+a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.pagination span {
+    border: none;
+}
+
+.error404 .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - (56px + 32px));
+    margin-top: 0 !important;
+}
+
+.error404 h1 {
+    font-size: 5rem;
 }

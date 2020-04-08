@@ -33,10 +33,10 @@ browserSync.init({
     files: watch.map(element => path.resolve(element)),
     snippetOptions: {
         rule: {
-        match:  /<\/head>/i,
-        fn: function(snippet, match) {
-            return `<script src="${getPublicPath(publicFolder)}styles/main.js"></script>${snippet}${match}`
-        }
+            match:  /<\/head>/i,
+            fn: function(snippet, match) {
+                return `<script src="${getPublicPath(publicFolder)}styles/app.js"></script>${snippet}${match}`
+            }
         }
     }
-});
+})
