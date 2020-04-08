@@ -51,6 +51,16 @@ module.exports = (options) => {
                                 sourceMap: dev
                             }
                         },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                ident: 'postcss',
+                                sourceMap: dev,
+                                config: { 
+                                    ctx: { dev }
+                                }
+                            }
+                        },
                         { 
                             loader: 'resolve-url-loader',
                             options: {
