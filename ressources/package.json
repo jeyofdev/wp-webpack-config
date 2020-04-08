@@ -5,7 +5,6 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "serve": "node compiler/serve",
     "start": "node compiler/serve",
     "build": "node compiler/build"
   },
