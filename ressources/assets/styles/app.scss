@@ -2,6 +2,12 @@ body {
     background: rgb(222, 226, 235);
 }
 
+a,
+a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .blog-main .article {
     flex: 0 0 47.5%;
     max-width: 47.5%;
@@ -18,12 +24,6 @@ body {
 
 .blog-sidebar a {
     color: white;
-}
-
-a,
-a:focus {
-    outline: none !important;
-    box-shadow: none !important;
 }
 
 .pagination span {
