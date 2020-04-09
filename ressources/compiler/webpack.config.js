@@ -1,13 +1,15 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const MiniCssExtractWebpackPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin')
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-const stylelintWebpackPlugin = require('stylelint-webpack-plugin')
-const webpackManifestPlugin = require('webpack-manifest-plugin');
+const plugins = {
+    miniCssExtractWebpack: require('mini-css-extract-plugin'),
+    copyWebpack: require('copy-webpack-plugin'),
+    cleanWebpack: require('clean-webpack-plugin'),
+    nonJsEntryCleanup: require('./non-js-entry-cleanup-plugin'),
+    friendlyErrorsWebpack: require('friendly-errors-webpack-plugin'),
+    stylelintWebpack: require('stylelint-webpack-plugin'),
+    webpackAssetsManifest: require('webpack-assets-manifest')
+}
 
 const { context, entry, devtool, outputFolder, publicFolder } = require('./config')
 
@@ -45,7 +47,7 @@ module.exports = (options) => {
                 {
                     test: /\.(sa|sc|c)ss$/,
                     use: [
-                        ...(dev ? [{ loader: 'cache-loader' }, { loader: 'style-loader', options: { sourceMap: dev } }] : [MiniCssExtractWebpackPlugin.loader]),
+                        ...(dev ? [{ loader: 'cache-loader' }, { loader: 'style-loader', options: { sourceMap: dev } }] : [plugins.miniCssExtractWebpack.loader]),
                         { 
                             loader: 'css-loader',
                             options: {
@@ -122,35 +124,35 @@ module.exports = (options) => {
             ]
         },
         plugins: [
+            new plugins.cleanWebpack([
+                path.resolve(outputFolder)
+            ], {
+                allowExternal: true,
+                beforeEmit: true
+            }),
+            new plugins.copyWebpack([
+                {
+                    from: path.resolve(`${context}/**/*`),
+                    to: path.resolve(outputFolder),
+                }
+            ], {
+                ignore: ['*.js', '*.ts', '*.scss', '*.css']
+            }),
             ...(dev ? [
                 new webpack.HotModuleReplacementPlugin(),
-                new FriendlyErrorsWebpackPlugin(),
-                new stylelintWebpackPlugin()
+                new plugins.friendlyErrorsWebpack(),
+                new plugins.stylelintWebpack()
             ] : [
-                new MiniCssExtractWebpackPlugin({
+                new plugins.miniCssExtractWebpack({
                     filename: '[name].css'
                 }),
-                new NonJsEntryCleanupPlugin({
+                new plugins.nonJsEntryCleanup({
                     context: 'styles',
                     extensions: 'js',
                     includeSubfolders: true
                 }),
-                new webpackManifestPlugin({
-                    fileName: 'manifest.json'
-                }),
-                new CleanWebpackPlugin([
-                    path.resolve(outputFolder)
-                ], {
-                    allowExternal: true,
-                    beforeEmit: true
-                }),
-                new CopyWebpackPlugin([
-                    {
-                        from: path.resolve(`${context}/**/*`),
-                        to: path.resolve(outputFolder),
-                    }
-                ], {
-                    ignore: ['*.js', '*.ts', '*.scss', '*.css']
+                new plugins.webpackAssetsManifest({
+                    space: 4
                 })
             ])
         ]
