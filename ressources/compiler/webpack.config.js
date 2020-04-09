@@ -7,6 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const stylelintWebpackPlugin = require('stylelint-webpack-plugin')
+const webpackManifestPlugin = require('webpack-manifest-plugin');
 
 const { context, entry, devtool, outputFolder, publicFolder } = require('./config')
 
@@ -102,6 +103,9 @@ module.exports = (options) => {
                     context: 'styles',
                     extensions: 'js',
                     includeSubfolders: true
+                }),
+                new webpackManifestPlugin({
+                    fileName: 'manifest.json'
                 }),
                 new CleanWebpackPlugin([
                     path.resolve(outputFolder)

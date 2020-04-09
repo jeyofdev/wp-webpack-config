@@ -1,0 +1,5 @@
+{
+  "scripts/app.js": "/wp-content/themes/themewithwebpack/assets/scripts/app.js",
+  "styles/app.css": "/wp-content/themes/themewithwebpack/assets/styles/app.css",
+  "styles/app.js": "/wp-content/themes/themewithwebpack/assets/styles/app.js"
+}
