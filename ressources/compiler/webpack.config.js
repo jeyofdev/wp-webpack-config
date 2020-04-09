@@ -78,16 +78,47 @@ module.exports = (options) => {
                     ]
                 },
                 {
-                    test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico|mp4|webm)$/,
+                    test: /\.(png|jpe?g|gif|svg|ico)$/,
                     use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                        name: '[path][name].[ext]',
+                        {
+                            loader: 'file-loader',
+                            options: {
+                            name: '[path][name].[ext]',
+                            }
+                        },
+                        {
+                            loader: 'image-webpack-loader',
+                            options: {
+                                bypassOnDebug: dev,
+                                mozjpeg: {
+                                    progressive: true,
+                                    quality: 65
+                                },
+                                optipng: {
+                                    enabled: false
+                                },
+                                pngquant: {
+                                    quality: [0.65, 0.90],
+                                    speed: 4
+                                },
+                                gifsicle: {
+                                    interlaced: false
+                                }
+                            }
                         }
-                    }
                     ]
                 },
+                {
+                    test: /\.(ttf|otf|eot|woff2?)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[path][name].[ext]'
+                            }
+                        }
+                    ]
+                }
             ]
         },
         plugins: [

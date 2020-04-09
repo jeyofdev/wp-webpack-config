@@ -1,7 +1,3 @@
-body {
-    background: rgb(222, 226, 235);
-}
-
 a,
 a:focus {
     outline: none !important;
@@ -21,6 +17,10 @@ a:focus {
 
 .blog-main .badge {
     font-size: 1rem;
+}
+
+.blog-sidebar > div {
+    background: url('../images/bg.png');  // image from www.subtlepatterns.com
 }
 
 .blog-sidebar a {

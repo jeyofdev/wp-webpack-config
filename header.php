@@ -9,6 +9,9 @@
 
     <body <?php body_class(); ?>>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="<?php esc_url(home_url("/")); ?>">
+                <img src="<?= get_template_directory_uri() . '/assets/images/wp-logo.png'; ?>" alt="logo" width="50">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
