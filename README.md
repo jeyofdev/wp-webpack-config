@@ -47,6 +47,7 @@ $ git clone git@github.com:jeyofdev/wp-webpack-config.git
 
 Install all dependencies
 ```sh
+$ cd /yoursitepath/wp-content/themes/tourthemename/ressources
 $ yarn install
 ```
 
