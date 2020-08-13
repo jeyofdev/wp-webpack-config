@@ -2,23 +2,6 @@
 
 
 
-## Add some datas
-
-To have articles to display, import the data from this file
-```sh
-$ data/datas.2020-04-08.xml
-```
-
-Import the navigation menu:
-* Install and activate the 'Export Import Menus' plugin.
-* Import the menu via the panel appearance/ Export/Import Menus then import the file data/wp_menus_main-menu_backup_08-04-2020.json
-* In the menu panel
-* * Change the url of the blog link to the home page 
-* * Choose the location theme 'main navigation'
-
-
-
-
 ## Tools
 
 Check that [Nodejs](https://nodejs.org/en/download/) is installed :
@@ -46,7 +29,7 @@ Don't forget to activate your new theme.
 
 Install all dependencies
 ```sh
-$ cd /yoursitepath/wp-content/themes/yourthemename/ressources
+$ cd /yoursitepath/wp-content/themes/yourthemename
 $ yarn install
 ```
 
@@ -64,12 +47,18 @@ module.exports = {
 ## Generate the assets
 ### Dev mode :
 ```sh
-$ cd /yoursitepath/wp-content/themes/yourthemename/ressources
-$ yarn run start
+$ cd /yoursitepath/wp-content/themes/yourthemename
+$ yarn start
 ```
 
 ### Production mode :
 ```sh
-$ cd /yoursitepath/wp-content/themes/yourthemename/ressources
-$ yarn run build
+$ cd /yoursitepath/wp-content/themes/yourthemename
+$ yarn build
+```
+
+### Production mode with manifest file and minified assets:
+```sh
+$ cd /yoursitepath/wp-content/themes/yourthemename
+$ yarn build:production
 ```
