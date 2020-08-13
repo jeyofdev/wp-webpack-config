@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * Filters the current theme directory URI
+ */
+function wpThemeUsingWebpack_template_directory_uri ($template_dir_uri) : string
+{
+    return dirname($template_dir_uri);
+};
+
+
+
+/**
  * Add a class to li items of the menu
  */
 function wpThemeUsingWebpack_menu_class (array $classes) : array
@@ -61,6 +71,7 @@ function wpThemeUsingWebpack_archive_title(string $title) : string
 }
 
 
+add_filter("template_directory_uri", "wpThemeUsingWebpack_template_directory_uri");
 add_filter("nav_menu_css_class", "wpThemeUsingWebpack_menu_class");
 add_filter("nav_menu_link_attributes", "wpThemeUsingWebpack_menu_link_class");
 add_filter("the_content_more_link", "wpThemeUsingWebpack_custom_morelink", 10);

@@ -1,4 +1,5 @@
-/ressources/node_modules
-/ressources/.cache-loader
+/node_modules
+/.cache-loader
 
 yarn.lock
+yarn-error.log
